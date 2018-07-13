@@ -69,7 +69,7 @@ def getunixtimes(times):
 	for time in times:
 		temptimes = []
 		for individualtimes in time:
-			temptimes.append(converttounixtime(individualtimes))
+			temptimes.append(converttounixtime(individualtimes+timedelta(hours=0)))
 			
 		unixtimes.append(temptimes)
 	return unixtimes
@@ -80,7 +80,7 @@ def converttounixtime(time):
 def opendatabase():
 
 	try:
-		db = MySQLdb.connect(user='root',passwd='1ns0mn1a',db='ARCHER')
+		db = MySQLdb.connect(user='',passwd='',db='')
 
 		return db
 	except Exception as err:
@@ -605,12 +605,18 @@ def graphprocessedossdata(ossdata,outliersdata,graphoutliers,processcount):
 	for time in ossdata:
 		if(graphoutliers and time[flagoffset]):
 			outlierstimes.append(time[0])
-			outliersdatas.append(time[5]/time[4])
+			if(time[4] != 0):
+				outliersdatas.append(time[5]/time[4])
+			else:
+				outliersdatas.append(0)
 			outliersdatasmin.append(time[3])
 			outliersdatasmax.append(time[2])
 		else:
 			times.append(time[0])
-			datas.append(time[5]/time[4])
+			if(time[4] != 0):
+				datas.append(time[5]/time[4])
+			else:
+				datas.append(0)
 			datasmin.append(time[3])
 			datasmax.append(time[2])
 	creategraph(datas,times,outliersdatas,outlierstimes,graphoutliers,datasmin,datasmax,outliersdatasmin,outliersdatasmax,True,processcount,"Data Mean ReadKB")
@@ -626,12 +632,18 @@ def graphprocessedossdata(ossdata,outliersdata,graphoutliers,processcount):
 	for time in ossdata:
 		if(graphoutliers and time[flagoffset]):
 			outlierstimes.append(time[0])
-			outliersdatas.append(time[9]/time[8])
+			if(time[8] != 0):
+				outliersdatas.append(time[9]/time[8])
+			else:
+				outliersdatas.append(0)
 			outliersdatasmin.append(time[7])
 			outliersdatasmax.append(time[8])
 		else:
 			times.append(time[0])
-			datas.append(time[9]/time[8])
+			if(time[8] != 0):
+				datas.append(time[9]/time[8])
+			else:
+				datas.append(0)
 			datasmin.append(time[7])
 			datasmax.append(time[6])
 	creategraph(datas,times,outliersdatas,outlierstimes,graphoutliers,datasmin,datasmax,outliersdatasmin,outliersdatasmax,True,processcount,"Data Mean Read Operations")
@@ -648,12 +660,18 @@ def graphprocessedossdata(ossdata,outliersdata,graphoutliers,processcount):
 	for time in ossdata:
 		if(graphoutliers and time[flagoffset]):
 			outlierstimes.append(time[0])
-			outliersdatas.append(time[14]/time[13])
+			if(time[13] != 0):
+				outliersdatas.append(time[14]/time[13])
+			else:
+				outliersdatas.append(0)
 			outliersdatasmin.append(time[12])
 			outliersdatasmax.append(time[11])
 		else:
 			times.append(time[0])
-			datas.append(time[14]/time[13])
+			if(time[13] != 0):
+				datas.append(time[14]/time[13])
+			else:
+				datas.append(0)
 			datasmin.append(time[12])
 			datasmax.append(time[11])
 	creategraph(datas,times,outliersdatas,outlierstimes,graphoutliers,datasmin,datasmax,outliersdatasmin,outliersdatasmax,True,processcount,"Data Mean WriteKB")
@@ -669,12 +687,18 @@ def graphprocessedossdata(ossdata,outliersdata,graphoutliers,processcount):
 	for time in ossdata:
 		if(graphoutliers and time[flagoffset]):
 			outlierstimes.append(time[0])
-			outliersdatas.append(time[18]/time[17])
+			if(time[17] != 0):
+				outliersdatas.append(time[18]/time[17])
+			else:
+				outliersdatas.append(0)
 			outliersdatasmin.append(time[16])
 			outliersdatasmax.append(time[15])
 		else:
 			times.append(time[0])
-			datas.append(time[18]/time[17])
+			if(time[17] != 0):
+				datas.append(time[18]/time[17])
+			else:
+				datas.append(0)
 			datasmin.append(time[16])
 			datasmax.append(time[15])
 	creategraph(datas,times,outliersdatas,outlierstimes,graphoutliers,datasmin,datasmax,outliersdatasmin,outliersdatasmax,True,processcount,"Data Mean Write Operations")
